@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Python学习笔记 | zzy的个人博客</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- 添加代码高亮样式 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <!-- 添加highlight.js库 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <!-- 添加mermaid.js库 -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="../../../../css/code.css">
+  <link rel="stylesheet" href="../../../../css/code-custom.css">
+  <link rel="stylesheet" href="../../../../css/code-languages.css">
+  <link rel="stylesheet" href="../../../../css/mermaid.css">
+
+  <link rel="stylesheet" href="../../../../css/vscode.css">
+  <link rel="stylesheet" href="../../../../css/post.css">
+  <link rel="stylesheet" href="../../../../css/tag.css">
+  <link rel="stylesheet" href="../../../../css/categories.css">
+  <link rel="stylesheet" href="../../../../css/archive.css">
+  <link rel="stylesheet" href="../../../../css/search.css">
+  <link rel="stylesheet" href="../../../../css/mobile.css">  <link rel="stylesheet" href="../../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../../css/elements.css">
+
+  <!-- 添加 JetBrains Mono 字体 -->  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Add any custom head content here -->
+
+  <script src="../../../../js/explorer.js"></script>
+  <script src="../../../../js/code-copy.js"></script>
+  <script src="../../../../js/code-enhance.js"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <div class="wrapper">
+      <div class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <header class="vs-header">
+  <nav class="vs-nav">
+    <div class="nav-left">
+      <a href="/" class="nav-brand">
+        <i class="fas fa-terminal"></i>
+        zzy的个人博客
+      </a>
+    </div>
+    
+    <div class="nav-right">
+      <a href="/" class="nav-item ">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </a>
+      <a href="/archives/" class="nav-item ">
+        <i class="fas fa-archive"></i>
+        <span>归档</span>
+      </a>
+      <a href="/categories/" class="nav-item ">
+        <i class="fas fa-folder"></i>
+        <span>分类</span>
+      </a>
+      <a href="/tags/" class="nav-item ">
+        <i class="fas fa-tags"></i>
+        <span>标签</span>
+      </a>
+      <a href="/search/" class="nav-item ">
+        <i class="fas fa-search"></i>
+        <span>搜索</span>
+      </a>
+      <a href="/about/" class="nav-item ">
+        <i class="fas fa-info-circle"></i>
+        <span>关于</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function smoothScroll(event, target) {
+    event.preventDefault();
+    const targetId = target.substring(target.indexOf('#') + 1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 50, // 调整偏移量
+        behavior: 'smooth'
+      });
+    } else {
+      window.location.href = target;
+    }
+  }
+
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('.vs-header');
+    const nav = document.querySelector('.vs-nav');
+    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    
+    nav.style.setProperty('--scroll-percent', `${scrollPercent}%`);
+    
+    if (window.scrollY > 0) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // 添加标签页切换动画
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      ripple.classList.add('nav-ripple');
+      this.appendChild(ripple);
+      
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      setTimeout(() => ripple.remove(), 1000);
+    });
+  });
+</script>
+
+
+<div class="vscode-container">
+  <!-- 左侧资源管理器 -->
+  <div class="sidebar-explorer">
+    <!-- TOC导航 -->
+    <div class="explorer-section">
+      <div class="section-header">
+        <i class="fas fa-list"></i>
+        <span>TABLE OF CONTENTS</span>
+      </div>
+      <div class="section-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">Python学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-text">1. Python基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E4%B8%8E%E7%BC%A9%E8%BF%9B"><span class="toc-text">行与缩进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="toc-text">多行语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%8E%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">标识符与保留字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="toc-text">输入与输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">三元操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E8%B5%8B%E5%80%BC"><span class="toc-text">多重赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%92%8C-%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E7%89%B9%E6%AE%8A%E4%BD%BF%E7%94%A8"><span class="toc-text">* 和 ** 运算符的特殊使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%8F%98%E9%87%8F-id"><span class="toc-text">独一无二的变量 id</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Python%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">2. Python基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="toc-text">浮点型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8B"><span class="toc-text">布尔型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-text">元组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#collections-%E6%A8%A1%E5%9D%97"><span class="toc-text">collections 模块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Python%E5%87%BD%E6%95%B0"><span class="toc-text">3. Python函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">函数的参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">函数的返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">Python的作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E7%9A%84%E5%BE%AA%E7%8E%AF"><span class="toc-text">Python的循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">迭代器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-text">内置函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#globals-%E5%92%8C-locals-%E5%87%BD%E6%95%B0"><span class="toc-text">globals() 和 locals() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eval-%E5%87%BD%E6%95%B0"><span class="toc-text">eval() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B8%8E%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-text">定义函数与调用函数的顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E7%A1%AE%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-text">正确定义与使用参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A8%A1%E5%9D%97"><span class="toc-text">4. 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pip-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="toc-text">pip 使用指南</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%BC%95%E5%85%A5"><span class="toc-text">模块的引入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97"><span class="toc-text">自定义模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97"><span class="toc-text">内置模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reload-%E5%87%BD%E6%95%B0"><span class="toc-text">reload() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0"><span class="toc-text">递归函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%88lambda-%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-text">匿名函数（lambda 函数）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E5%86%85%E7%BD%AE%E7%9A%84%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="toc-text">Python内置的高阶函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-text">5. 面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="toc-text">类的声明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">类的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%88%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%89"><span class="toc-text">类的变量（类的属性）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">类的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-self"><span class="toc-text">关于 self</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95%E4%B8%8E%E9%9D%9E%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="toc-text">绑定方法与非绑定方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="toc-text">类的实例化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#staticmethod-%E5%92%8C-classmethod"><span class="toc-text">@staticmethod 和 @classmethod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="toc-text">类的继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%B6%E7%B1%BB%E4%B8%8E%E5%AD%90%E7%B1%BB"><span class="toc-text">父类与子类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#super-%E5%87%BD%E6%95%B0"><span class="toc-text">super() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">对象的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9B%B8%E5%85%B3%E7%9A%84%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0"><span class="toc-text">面向对象相关的内建函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%88%AC%E8%99%AB"><span class="toc-text">6. 爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%AC%E8%99%AB%E7%AE%80%E4%BB%8B"><span class="toc-text">爬虫简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#urllib-%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">urllib 库的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#urllib-request-%E6%A8%A1%E5%9D%97"><span class="toc-text">urllib.request 模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#urlopen-%E5%87%BD%E6%95%B0"><span class="toc-text">urlopen() 函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HttpRequest-%E7%B1%BB%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">HttpRequest 类的函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#urlretrieve-%E5%87%BD%E6%95%B0"><span class="toc-text">urlretrieve() 函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%AF%B9%E8%B1%A1%E5%AE%9A%E5%88%B6"><span class="toc-text">请求对象定制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP%E4%B8%8EHTTPS"><span class="toc-text">HTTP与HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#urllib-parse-%E6%A8%A1%E5%9D%97"><span class="toc-text">urllib.parse 模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP%E8%AF%B7%E6%B1%82"><span class="toc-text">HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#GET%E8%AF%B7%E6%B1%82%E4%B8%8EPOST%E8%AF%B7%E6%B1%82"><span class="toc-text">GET请求与POST请求</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AJAX%E4%BB%8B%E7%BB%8D"><span class="toc-text">AJAX介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Handler%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">Handler处理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">代理服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-text">解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XPath"><span class="toc-text">XPath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTML%E4%B8%8EXML"><span class="toc-text">HTML与XML</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lxml-%E5%BA%93"><span class="toc-text">lxml 库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSONPath"><span class="toc-text">JSONPath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Selenium%E5%BA%93%E4%BD%BF%E7%94%A8"><span class="toc-text">Selenium库使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="toc-text">浏览器驱动程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Selenium"><span class="toc-text">安装 Selenium</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-text">编写测试代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Headless%E6%A8%A1%E5%BC%8F"><span class="toc-text">Headless模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">元素定位的方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB"><span class="toc-text">验证码识别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Python%E7%9A%84OCR%E5%BA%93"><span class="toc-text">Python的OCR库</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Requests%E5%BA%93"><span class="toc-text">Requests库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8E-urllib-%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">与 urllib 库的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="toc-text">会话保持</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#session%E4%B8%8Ecookie"><span class="toc-text">session与cookie</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">实战案例分析</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    </div>
+    
+    <!-- 同分类文章 -->
+    
+    <div class="explorer-section">
+      <div class="section-header">
+        <i class="fas fa-folder"></i>
+        <span>CATEGORY POSTS</span>
+      </div>
+      <div class="section-content">
+        
+          <div class="file">
+            <i class="fas fa-file-code"></i>
+            <a href="../../../05/05/Python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Python基础语法</a>
+          </div>
+        
+      </div>
+    </div>
+    
+    
+    <!-- 标签列表 -->
+    
+  </div>
+
+  <!-- 主要内容区域 -->
+  <div class="editor-content">
+    <div class="tab-bar">
+      <div class="tab active">
+        <i class="fas fa-file-alt"></i>
+        <span>Python学习笔记.md</span>
+      </div>
+    </div>
+    
+    <div class="content-area">
+      <article class="post-content">
+        <div class="post-header">
+          <h1>Python学习笔记</h1>
+          <div class="post-meta">
+            <span class="date">
+              <i class="fas fa-calendar-alt"></i>
+              2025-06-01
+            </span>            
+              <span class="categories">
+                <i class="fas fa-folder"></i>
+                <div class="categories-list">
+                  <ul class="category-item-post-list"><li class="category-item-post-list-item"><a class="category-item-post-list-link" href="../../../../categories/python/">python</a></li></ul>
+                </div>
+              </span>
+            
+            
+          </div>
+        </div>
+        
+        <div class="post-body vscode-markdown">
+          <h1 id="Python学习笔记"><a href="#Python学习笔记" class="headerlink" title="Python学习笔记"></a>Python学习笔记</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><strong>Python基础语法</strong><ul>
+<li>行与缩进</li>
+<li>多行语句</li>
+<li>标识符与保留字</li>
+<li>注释</li>
+<li>输入与输出</li>
+<li>运算符</li>
+<li>三元操作符</li>
+<li>多重赋值</li>
+<li><code>*</code> 和 <code>**</code> 运算符的特殊使用</li>
+<li>独一无二的变量 <code>id</code></li>
+</ul>
+</li>
+<li><strong>Python基本数据类型</strong><ul>
+<li>整型<ul>
+<li>不同进制整数的表示</li>
+<li>数字分隔符</li>
+<li>整型常量池</li>
+</ul>
+</li>
+<li>浮点型<ul>
+<li>基本操作</li>
+<li>浮点数转分数</li>
+<li>浮点数取整</li>
+<li>浮点数四舍五入</li>
+<li><code>decimal</code> 模块</li>
+</ul>
+</li>
+<li>布尔型<ul>
+<li>布尔值的判断</li>
+<li>特殊值的布尔值</li>
+</ul>
+</li>
+<li>字符串<ul>
+<li>字符串的定义与操作</li>
+<li>字符串索引与切片</li>
+<li>转义字符</li>
+<li>字符串前缀</li>
+<li>字符串拼接</li>
+<li>字符串基本函数</li>
+<li>字符串查找与替换</li>
+<li><code>str.maketrans()</code> 和 <code>str.translate()</code></li>
+<li>字符串比较与驻留</li>
+<li>字符串编译时拼接</li>
+</ul>
+</li>
+<li>列表<ul>
+<li>列表的创建</li>
+<li>列表推导式</li>
+<li>列表元素操作</li>
+<li>列表排序</li>
+<li>数值列表与统计函数</li>
+<li>切片</li>
+<li>列表拷贝</li>
+<li>列表反转</li>
+</ul>
+</li>
+<li>元组<ul>
+<li>元组与列表的区别</li>
+<li>元组的创建与操作</li>
+<li>元组内置函数</li>
+</ul>
+</li>
+<li>字典<ul>
+<li>初始化方式创建字典</li>
+<li>字典的操作</li>
+<li>字典与列表的嵌套</li>
+<li>字典排序</li>
+</ul>
+</li>
+<li>集合<ul>
+<li>集合的特性与操作</li>
+</ul>
+</li>
+<li><code>collections</code> 模块<ul>
+<li>命名元组 (<code>namedtuple</code>)</li>
+<li>计数器 (<code>Counter</code>)</li>
+<li>双向队列 (<code>deque</code>)</li>
+<li>有序字典 (<code>OrderedDict</code>)</li>
+<li>默认字典 (<code>defaultdict</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Python函数</strong><ul>
+<li>函数的参数<ul>
+<li>必选参数</li>
+<li>默认参数</li>
+<li>可变参数</li>
+<li>关键字参数</li>
+<li>参数组合</li>
+</ul>
+</li>
+<li>函数的返回值</li>
+<li>Python的作用域</li>
+<li>Python的循环</li>
+<li>迭代器</li>
+<li>内置函数</li>
+<li><code>globals()</code> 和 <code>locals()</code> 函数</li>
+<li><code>eval()</code> 函数</li>
+<li>定义函数与调用函数的顺序</li>
+<li>正确定义与使用参数</li>
+</ul>
+</li>
+<li><strong>模块</strong><ul>
+<li><code>pip</code> 使用指南</li>
+<li>模块的引入</li>
+<li>自定义模块</li>
+<li>内置模块</li>
+<li><code>reload()</code> 函数</li>
+<li>递归函数</li>
+<li>匿名函数（<code>lambda</code> 函数）</li>
+<li>Python内置的高阶函数</li>
+</ul>
+</li>
+<li><strong>面向对象</strong><ul>
+<li>类的声明</li>
+<li>类的定义</li>
+<li>类的变量（类的属性）</li>
+<li>类的方法</li>
+<li>关于 <code>self</code></li>
+<li>绑定方法与非绑定方法</li>
+<li>类的实例化</li>
+<li><code>@staticmethod</code> 和 <code>@classmethod</code></li>
+<li>类的继承</li>
+<li>父类与子类</li>
+<li>继承</li>
+<li><code>super()</code> 函数</li>
+<li>对象的创建</li>
+<li>面向对象相关的内建函数</li>
+</ul>
+</li>
+<li><strong>爬虫</strong><ul>
+<li>爬虫简介</li>
+<li><code>urllib</code> 库的使用<ul>
+<li><code>urllib.request</code> 模块</li>
+<li><code>urlopen()</code> 函数</li>
+<li><code>HttpRequest</code> 类的函数</li>
+<li><code>urlretrieve()</code> 函数</li>
+<li>请求对象定制</li>
+</ul>
+</li>
+<li>HTTP与HTTPS</li>
+<li><code>urllib.parse</code> 模块</li>
+<li>HTTP请求</li>
+<li>AJAX介绍</li>
+<li>Handler处理器</li>
+<li>代理服务器</li>
+<li>解析</li>
+<li>XPath</li>
+<li>HTML与XML</li>
+<li><code>lxml</code> 库</li>
+<li>JSONPath</li>
+<li>Selenium库使用</li>
+<li>验证码识别</li>
+<li>Requests库</li>
+<li>会话保持</li>
+<li>session与cookie</li>
+<li>实战案例分析</li>
+</ul>
+</li>
+</ol>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-Python基础语法"><a href="#1-Python基础语法" class="headerlink" title="1. Python基础语法"></a>1. Python基础语法</h3><h4 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h4><p>Python使用缩进来表示代码块，缩进的空格数必须相同。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;true&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;false&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h4><p>Python的代码通常一行一条语句，语句后可加分号<code>;</code>。一行写多条语句时用<code>;</code>隔开。长语句可用<code>\</code>换行，或在括号内自动换行。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;world&quot;</span>);<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_numbers</span>(<span class="hljs-params">x, y</span>):<br>    <span class="hljs-keyword">return</span> x + y<br></code></pre></td></tr></table></figure>
+
+<h4 id="标识符与保留字"><a href="#标识符与保留字" class="headerlink" title="标识符与保留字"></a>标识符与保留字</h4><p>标识符用于命名变量、函数等，需遵循特定规则。保留字是 Python 内置的关键字，不能用作标识符。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">num1 = <span class="hljs-number">1</span><br>float1 = <span class="hljs-number">0.5</span><br>true = <span class="hljs-literal">True</span>  <span class="hljs-comment"># 合法，Python对大小写敏感</span><br></code></pre></td></tr></table></figure>
+
+<p>可使用 <code>keyword</code> 模块查看保留字：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> keyword<br><span class="hljs-built_in">print</span>(keyword.kwlist)<br></code></pre></td></tr></table></figure>
+
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>单行注释以 <code>#</code> 开头，多行注释可用多个 <code>#</code> 或一对 <code>&#39;&#39;&#39;</code>&#x2F;<code>&quot;&quot;&quot;</code>。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 单行注释</span><br><span class="hljs-string">&#x27;&#x27;&#x27;多行注释&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="输入与输出"><a href="#输入与输出" class="headerlink" title="输入与输出"></a>输入与输出</h4><p><code>print()</code> 函数用于输出，可输出多个内容，内容间自动加空格。<code>%</code> 操作符用于格式化输出。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>)  <span class="hljs-comment"># 输出：hello world</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;%d + %d = %d&quot;</span> % (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>))  <span class="hljs-comment"># 输出：1 + 2 = 3</span><br></code></pre></td></tr></table></figure>
+
+<p><code>input()</code> 函数用于获取用户输入，返回值为字符串。可使用类型转换函数将其转为其他类型。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">str1 = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入：&quot;</span>)<br>num1 = <span class="hljs-built_in">int</span>(str1)<br></code></pre></td></tr></table></figure>
+
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>Python 提供多种运算符，包括算术、比较、赋值、逻辑、位、成员和身份运算符。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 算术运算符</span><br>result = <span class="hljs-number">2</span> + <span class="hljs-number">3</span> * <span class="hljs-number">4</span>  <span class="hljs-comment"># 结果为 14</span><br><span class="hljs-comment"># 逻辑运算符</span><br><span class="hljs-built_in">print</span>(<span class="hljs-literal">True</span> <span class="hljs-keyword">and</span> <span class="hljs-literal">False</span>)  <span class="hljs-comment"># 输出 False</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="三元操作符"><a href="#三元操作符" class="headerlink" title="三元操作符"></a>三元操作符</h4><p>三元操作符的基本格式为 <code>result = x if condition else y</code>。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">result = <span class="hljs-number">5</span> <span class="hljs-keyword">if</span> <span class="hljs-number">3</span> &gt; <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">2</span>  <span class="hljs-comment"># result 为 5</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="多重赋值"><a href="#多重赋值" class="headerlink" title="多重赋值"></a>多重赋值</h4><p>可同时为多个变量赋值，也可交换变量值。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">a, b = <span class="hljs-number">1</span>, <span class="hljs-number">2</span><br>a, b = b, a  <span class="hljs-comment"># a=2, b=1</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="和-运算符的特殊使用"><a href="#和-运算符的特殊使用" class="headerlink" title="* 和 ** 运算符的特殊使用"></a><code>*</code> 和 <code>**</code> 运算符的特殊使用</h4><p><code>*</code> 用于乘法和重复序列元素。<code>**</code> 用于幂运算和将字典元素作为关键字参数传递给函数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-number">2</span> * <span class="hljs-number">3</span>)  <span class="hljs-comment"># 输出 6</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;a&#x27;</span> * <span class="hljs-number">3</span>)  <span class="hljs-comment"># 输出 &#x27;aaa&#x27;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">**kwargs</span>):<br>    <span class="hljs-built_in">print</span>(kwargs)<br>f(x=<span class="hljs-number">1</span>, y=<span class="hljs-number">2</span>)  <span class="hljs-comment"># 输出 &#123;&#x27;x&#x27;: 1, &#x27;y&#x27;: 2&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="独一无二的变量-id"><a href="#独一无二的变量-id" class="headerlink" title="独一无二的变量 id"></a>独一无二的变量 <code>id</code></h4><p>每个变量都有一个独一无二的 <code>id</code>，表示变量在内存中的地址。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">a = <span class="hljs-number">1</span><br>b = <span class="hljs-number">2</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(a), <span class="hljs-built_in">id</span>(b))  <span class="hljs-comment"># 输出两个不同的 id</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-Python基本数据类型"><a href="#2-Python基本数据类型" class="headerlink" title="2. Python基本数据类型"></a>2. Python基本数据类型</h3><h4 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h4><p>Python 的整型可以表示正数、负数和零，支持多种进制表示。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">hex1 = <span class="hljs-number">0x45</span>  <span class="hljs-comment"># 十六进制</span><br>bin1 = <span class="hljs-number">0b101</span>  <span class="hljs-comment"># 二进制</span><br></code></pre></td></tr></table></figure>
+
+<p>可使用 <code>bin()</code>, <code>oct()</code>, <code>hex()</code> 函数进行进制转换。</p>
+<h4 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h4><p>浮点型用于表示小数或科学计数法表示的数。可使用 <code>float()</code> 将字符串转为浮点数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-built_in">float</span>(<span class="hljs-string">&quot;3.14&quot;</span>)  <span class="hljs-comment"># x 为 3.14</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h4><p>布尔型只有两个值：<code>True</code> 和 <code>False</code>。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-literal">True</span> <span class="hljs-keyword">and</span> <span class="hljs-literal">False</span>)  <span class="hljs-comment"># 输出 False</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串是字符序列，支持索引和切片操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">&quot;hello world&quot;</span><br><span class="hljs-built_in">print</span>(s[<span class="hljs-number">0</span>])  <span class="hljs-comment"># 输出 &#x27;h&#x27;</span><br><span class="hljs-built_in">print</span>(s[<span class="hljs-number">6</span>:<span class="hljs-number">11</span>])  <span class="hljs-comment"># 输出 &#x27;world&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>字符串支持多种操作，如拼接、格式化、查找等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">str1 = <span class="hljs-string">&quot;hello&quot;</span><br>str2 = <span class="hljs-string">&quot;world&quot;</span><br>result = str1 + <span class="hljs-string">&quot; &quot;</span> + str2  <span class="hljs-comment"># 结果为 &quot;hello world&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表是有序的元素集合，支持多种操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">lst = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>lst.append(<span class="hljs-number">4</span>)  <span class="hljs-comment"># 添加元素</span><br>lst.remove(<span class="hljs-number">2</span>)  <span class="hljs-comment"># 删除元素</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组与列表类似，但不可变。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">tup = (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(tup[<span class="hljs-number">0</span>])  <span class="hljs-comment"># 输出 1</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典是键值对的集合，支持多种操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">dict1 = &#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">25</span>&#125;<br><span class="hljs-built_in">print</span>(dict1[<span class="hljs-string">&quot;name&quot;</span>])  <span class="hljs-comment"># 输出 &quot;Alice&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p>集合是无序的元素集合，支持多种操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">set1 = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>set2 = &#123;<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br><span class="hljs-built_in">print</span>(set1.union(set2))  <span class="hljs-comment"># 输出 &#123;1, 2, 3, 4, 5&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="collections-模块"><a href="#collections-模块" class="headerlink" title="collections 模块"></a><code>collections</code> 模块</h4><p><code>collections</code> 模块提供了多种数据结构，如 <code>namedtuple</code>、<code>Counter</code>、<code>deque</code>、<code>OrderedDict</code>、<code>defaultdict</code> 等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> namedtuple<br>Point = namedtuple(<span class="hljs-string">&quot;Point&quot;</span>, [<span class="hljs-string">&quot;x&quot;</span>, <span class="hljs-string">&quot;y&quot;</span>])<br>p = Point(x=<span class="hljs-number">1</span>, y=<span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(p.x, p.y)  <span class="hljs-comment"># 输出 1 2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-Python函数"><a href="#3-Python函数" class="headerlink" title="3. Python函数"></a>3. Python函数</h3><h4 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h4><p>函数可以有多种参数类型，包括必选参数、默认参数、可变参数和关键字参数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">a, b=<span class="hljs-number">2</span>, *args, **kwargs</span>):<br>    <span class="hljs-built_in">print</span>(a, b, args, kwargs)<br>func(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, x=<span class="hljs-number">6</span>, y=<span class="hljs-number">7</span>)  <span class="hljs-comment"># 输出 1 3 (4, 5) &#123;&#x27;x&#x27;:6, &#x27;y&#x27;:7&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h4><p>函数可以返回值或函数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-keyword">return</span> a + b<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_func</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner</span>():<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;inner function&quot;</span>)<br>    <span class="hljs-keyword">return</span> inner<br></code></pre></td></tr></table></figure>
+
+<h4 id="Python的作用域"><a href="#Python的作用域" class="headerlink" title="Python的作用域"></a>Python的作用域</h4><p>Python 的作用域规则决定了变量的可见性。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">1</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>():<br>    <span class="hljs-keyword">global</span> x<br>    x = <span class="hljs-number">2</span><br>func()<br><span class="hljs-built_in">print</span>(x)  <span class="hljs-comment"># 输出 2</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Python的循环"><a href="#Python的循环" class="headerlink" title="Python的循环"></a>Python的循环</h4><p><code>for</code> 循环和 <code>while</code> 循环可用于迭代序列或执行重复操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure>
+
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>迭代器用于遍历序列元素。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">lst = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>iter_lst = <span class="hljs-built_in">iter</span>(lst)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(iter_lst))  <span class="hljs-comment"># 输出 1</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h4><p>Python 提供了许多内置函数，如 <code>abs()</code>, <code>divmod()</code>, <code>max()</code>, <code>min()</code>, <code>sum()</code>, <code>round()</code> 等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">abs</span>(-<span class="hljs-number">5</span>))  <span class="hljs-comment"># 输出 5</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="globals-和-locals-函数"><a href="#globals-和-locals-函数" class="headerlink" title="globals() 和 locals() 函数"></a><code>globals()</code> 和 <code>locals()</code> 函数</h4><p><code>globals()</code> 返回当前模块的全局变量字典，<code>locals()</code> 返回当前函数的局部变量字典。例如：</p>
+<p>Python</p>
+<p>复制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">10</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>():<br>    y = <span class="hljs-number">20</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">locals</span>())  <span class="hljs-comment"># 输出 &#123;&#x27;y&#x27;:20&#125;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">globals</span>())  <span class="hljs-comment"># 输出包含 x 的字典</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="eval-函数"><a href="#eval-函数" class="headerlink" title="eval() 函数"></a><code>eval()</code> 函数</h4><p><code>eval()</code> 函数用于动态执行 Python 表达式。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">result = <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;2 + 3&quot;</span>)  <span class="hljs-comment"># result 为 5</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="定义函数与调用函数的顺序"><a href="#定义函数与调用函数的顺序" class="headerlink" title="定义函数与调用函数的顺序"></a>定义函数与调用函数的顺序</h4><p>函数必须先定义后调用。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br>func()<br></code></pre></td></tr></table></figure>
+
+<h4 id="正确定义与使用参数"><a href="#正确定义与使用参数" class="headerlink" title="正确定义与使用参数"></a>正确定义与使用参数</h4><p>调用函数时，参数数量和类型必须匹配。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-built_in">print</span>(a, b)<br>func(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 正确</span><br>func(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 报错</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-模块"><a href="#4-模块" class="headerlink" title="4. 模块"></a>4. 模块</h3><h4 id="pip-使用指南"><a href="#pip-使用指南" class="headerlink" title="pip 使用指南"></a><code>pip</code> 使用指南</h4><p><code>pip</code> 是 Python 的包管理工具。常用命令包括：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install 库名  <span class="hljs-comment"># 安装库</span><br>pip uninstall 库名  <span class="hljs-comment"># 卸载库</span><br>pip freeze  <span class="hljs-comment"># 列出已安装库及其版本</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="模块的引入"><a href="#模块的引入" class="headerlink" title="模块的引入"></a>模块的引入</h4><p>使用 <code>import</code> 关键字引入模块。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-built_in">print</span>(math.sqrt(<span class="hljs-number">4</span>))  <span class="hljs-comment"># 输出 2.0</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h4><p>创建 <code>.py</code> 文件即可定义模块。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># mymodule.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello, &quot;</span> + name)<br></code></pre></td></tr></table></figure>
+
+<p>在其他文件中引入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> mymodule <span class="hljs-keyword">import</span> greet<br>greet(<span class="hljs-string">&quot;Alice&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="内置模块"><a href="#内置模块" class="headerlink" title="内置模块"></a>内置模块</h4><p>Python 提供了许多内置模块，如 <code>os</code>, <code>sys</code>, <code>json</code>, <code>logging</code>, <code>time</code>, <code>datetime</code>, <code>hashlib</code>, <code>random</code> 等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-built_in">print</span>(os.getcwd())  <span class="hljs-comment"># 输出当前工作目录</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="reload-函数"><a href="#reload-函数" class="headerlink" title="reload() 函数"></a><code>reload()</code> 函数</h4><p><code>reload()</code> 函数用于重新加载模块。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> importlib<br>importlib.reload(mymodule)<br></code></pre></td></tr></table></figure>
+
+<h4 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h4><p>递归函数是调用自身的函数。例如，汉诺塔问题的递归解决方案：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">hanoi</span>(<span class="hljs-params">n, x, y, z</span>):<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:<br>        <span class="hljs-built_in">print</span>(x, <span class="hljs-string">&quot;--&gt;&quot;</span>, z)<br>    <span class="hljs-keyword">else</span>:<br>        hanoi(n-<span class="hljs-number">1</span>, x, z, y)<br>        <span class="hljs-built_in">print</span>(x, <span class="hljs-string">&quot;--&gt;&quot;</span>, z)<br>        hanoi(n-<span class="hljs-number">1</span>, y, x, z)<br>hanoi(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="匿名函数（lambda-函数）"><a href="#匿名函数（lambda-函数）" class="headerlink" title="匿名函数（lambda 函数）"></a>匿名函数（<code>lambda</code> 函数）</h4><p><code>lambda</code> 函数是匿名函数，用于定义简单函数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">func = <span class="hljs-keyword">lambda</span> x: x + <span class="hljs-number">1</span><br><span class="hljs-built_in">print</span>(func(<span class="hljs-number">2</span>))  <span class="hljs-comment"># 输出 3</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Python内置的高阶函数"><a href="#Python内置的高阶函数" class="headerlink" title="Python内置的高阶函数"></a>Python内置的高阶函数</h4><p>高阶函数如 <code>map()</code>, <code>filter()</code>, <code>reduce()</code> 等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]<br>squared = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>, list1))  <span class="hljs-comment"># 输出 [1,4,9,16]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-面向对象"><a href="#5-面向对象" class="headerlink" title="5. 面向对象"></a>5. 面向对象</h3><h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><p>使用 <code>class</code> 关键字声明类。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;类文档字符串&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h4><p>类中可定义变量和方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Book</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, author</span>):<br>        <span class="hljs-variable language_">self</span>.name = name<br>        <span class="hljs-variable language_">self</span>.author = author<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-variable language_">self</span>.name, <span class="hljs-variable language_">self</span>.author)<br>book = Book(<span class="hljs-string">&quot;Python&quot;</span>, <span class="hljs-string">&quot;Guido&quot;</span>)<br>book.display()<br></code></pre></td></tr></table></figure>
+
+<h4 id="类的变量（类的属性）"><a href="#类的变量（类的属性）" class="headerlink" title="类的变量（类的属性）"></a>类的变量（类的属性）</h4><p>类变量是所有实例共享的变量，实例变量是每个实例独有的变量。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    class_var = <span class="hljs-number">100</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, instance_var</span>):<br>        <span class="hljs-variable language_">self</span>.instance_var = instance_var<br></code></pre></td></tr></table></figure>
+
+<h4 id="类的方法"><a href="#类的方法" class="headerlink" title="类的方法"></a>类的方法</h4><p>类的方法是定义在类中的函数。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;方法调用&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="关于-self"><a href="#关于-self" class="headerlink" title="关于 self"></a>关于 <code>self</code></h4><p><code>self</code> 是实例对象的引用，用于访问实例变量和方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        <span class="hljs-variable language_">self</span>.value = value<br></code></pre></td></tr></table></figure>
+
+<h4 id="绑定方法与非绑定方法"><a href="#绑定方法与非绑定方法" class="headerlink" title="绑定方法与非绑定方法"></a>绑定方法与非绑定方法</h4><p>绑定方法是与实例绑定的方法，非绑定方法是与类绑定的方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">instance_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;实例方法&quot;</span>)<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">class_method</span>(<span class="hljs-params">cls</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;类方法&quot;</span>)<br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">static_method</span>():<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;静态方法&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="类的实例化"><a href="#类的实例化" class="headerlink" title="类的实例化"></a>类的实例化</h4><p>使用类名加括号创建实例。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">obj = MyClass()<br></code></pre></td></tr></table></figure>
+
+<h4 id="staticmethod-和-classmethod"><a href="#staticmethod-和-classmethod" class="headerlink" title="@staticmethod 和 @classmethod"></a><code>@staticmethod</code> 和 <code>@classmethod</code></h4><p><code>@staticmethod</code> 定义静态方法，<code>@classmethod</code> 定义类方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">static_method</span>():<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;静态方法&quot;</span>)<br><span class="hljs-meta">    @classmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">class_method</span>(<span class="hljs-params">cls</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;类方法&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h4><p>子类继承父类的属性和方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parent_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;父类方法&quot;</span>)<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Child</span>(<span class="hljs-title class_ inherited__">Parent</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">child_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;子类方法&quot;</span>)<br>child = Child()<br>child.parent_method()<br>child.child_method()<br></code></pre></td></tr></table></figure>
+
+<h4 id="父类与子类"><a href="#父类与子类" class="headerlink" title="父类与子类"></a>父类与子类</h4><p>父类是基类，子类是派生类。子类可重写父类的方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;父类方法&quot;</span>)<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Child</span>(<span class="hljs-title class_ inherited__">Parent</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;子类方法&quot;</span>)<br>child = Child()<br>child.my_method()  <span class="hljs-comment"># 输出 &quot;子类方法&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>Python 支持多继承。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>:<br>    <span class="hljs-keyword">pass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>:<br>    <span class="hljs-keyword">pass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>(A, B):<br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="super-函数"><a href="#super-函数" class="headerlink" title="super() 函数"></a><code>super()</code> 函数</h4><p><code>super()</code> 函数用于调用父类的方法。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;父类方法&quot;</span>)<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Child</span>(<span class="hljs-title class_ inherited__">Parent</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_method</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().my_method()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;子类方法&quot;</span>)<br>child = Child()<br>child.my_method()<br></code></pre></td></tr></table></figure>
+
+<h4 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h4><p>对象创建时，<code>__new__()</code> 方法用于创建对象，<code>__init__()</code> 方法用于初始化对象。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__new__</span>(<span class="hljs-params">cls</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;创建对象&quot;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>().__new__(cls)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;初始化对象&quot;</span>)<br>obj = MyClass()<br></code></pre></td></tr></table></figure>
+
+<h4 id="面向对象相关的内建函数"><a href="#面向对象相关的内建函数" class="headerlink" title="面向对象相关的内建函数"></a>面向对象相关的内建函数</h4><p>内建函数如 <code>issubclass()</code>, <code>isinstance()</code>, <code>hasattr()</code>, <code>getattr()</code>, <code>setattr()</code>, <code>delattr()</code>, <code>dir()</code>, <code>super()</code>, <code>vars()</code> 等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">issubclass</span>(Child, Parent))  <span class="hljs-comment"># 输出 True</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="6-爬虫"><a href="#6-爬虫" class="headerlink" title="6. 爬虫"></a>6. 爬虫</h3><h4 id="爬虫简介"><a href="#爬虫简介" class="headerlink" title="爬虫简介"></a>爬虫简介</h4><p>爬虫是一种自动抓取网页信息的程序。常见的爬虫类型包括通用爬虫、聚焦爬虫、增量式爬虫和深层爬虫。</p>
+<h4 id="urllib-库的使用"><a href="#urllib-库的使用" class="headerlink" title="urllib 库的使用"></a><code>urllib</code> 库的使用</h4><p><code>urllib</code> 是 Python 的一个网络爬虫库，包含多个模块。</p>
+<h5 id="urllib-request-模块"><a href="#urllib-request-模块" class="headerlink" title="urllib.request 模块"></a><code>urllib.request</code> 模块</h5><p><code>urllib.request</code> 模块用于打开和读取 URL。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> urllib.request<br>response = urllib.request.urlopen(<span class="hljs-string">&quot;https://www.python.org/&quot;</span>)<br>html = response.read().decode(<span class="hljs-string">&quot;utf-8&quot;</span>)<br><span class="hljs-built_in">print</span>(html)<br></code></pre></td></tr></table></figure>
+
+<h5 id="urlopen-函数"><a href="#urlopen-函数" class="headerlink" title="urlopen() 函数"></a><code>urlopen()</code> 函数</h5><p><code>urlopen()</code> 函数用于打开 URL。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">response = urllib.request.urlopen(<span class="hljs-string">&quot;https://www.python.org/&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="HttpRequest-类的函数"><a href="#HttpRequest-类的函数" class="headerlink" title="HttpRequest 类的函数"></a><code>HttpRequest</code> 类的函数</h5><p><code>HttpRequest</code> 类用于创建请求对象。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request<br>req = request.Request(<span class="hljs-string">&quot;https://www.python.org/&quot;</span>)<br>response = request.urlopen(req)<br></code></pre></td></tr></table></figure>
+
+<h5 id="urlretrieve-函数"><a href="#urlretrieve-函数" class="headerlink" title="urlretrieve() 函数"></a><code>urlretrieve()</code> 函数</h5><p><code>urlretrieve()</code> 函数用于下载文件。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">urllib.request.urlretrieve(<span class="hljs-string">&quot;https://example.com/image.jpg&quot;</span>, <span class="hljs-string">&quot;image.jpg&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="请求对象定制"><a href="#请求对象定制" class="headerlink" title="请求对象定制"></a>请求对象定制</h5><p>可定制请求头以模拟浏览器访问。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">headers = &#123;<br>    <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0&quot;</span><br>&#125;<br>req = request.Request(<span class="hljs-string">&quot;https://www.python.org/&quot;</span>, headers=headers)<br></code></pre></td></tr></table></figure>
+
+<h4 id="HTTP与HTTPS"><a href="#HTTP与HTTPS" class="headerlink" title="HTTP与HTTPS"></a>HTTP与HTTPS</h4><p>HTTP 是明文传输协议，HTTPS 是加密传输协议。HTTPS 更安全。</p>
+<h4 id="urllib-parse-模块"><a href="#urllib-parse-模块" class="headerlink" title="urllib.parse 模块"></a><code>urllib.parse</code> 模块</h4><p><code>urllib.parse</code> 模块用于解析 URL。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> urlparse<br>result = urlparse(<span class="hljs-string">&quot;https://www.python.org:8080/path/to/page?name=python&amp;age=30#fragment&quot;</span>)<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+
+<h4 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h4><p>HTTP 请求包含请求方法、请求网址、请求头和请求体。常见的请求方法有 GET 和 POST。</p>
+<h5 id="GET请求与POST请求"><a href="#GET请求与POST请求" class="headerlink" title="GET请求与POST请求"></a>GET请求与POST请求</h5><p>GET 请求用于获取数据，POST 请求用于提交数据。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GET 请求</span><br>response = urllib.request.urlopen(<span class="hljs-string">&quot;https://www.python.org/s?wd=python&quot;</span>)<br><br><span class="hljs-comment"># POST 请求</span><br><span class="hljs-keyword">import</span> urllib.parse<br>data = urllib.parse.urlencode(&#123;<span class="hljs-string">&quot;wd&quot;</span>: <span class="hljs-string">&quot;python&quot;</span>&#125;).encode(<span class="hljs-string">&quot;utf-8&quot;</span>)<br>response = urllib.request.urlopen(<span class="hljs-string">&quot;https://www.python.org/s&quot;</span>, data=data)<br></code></pre></td></tr></table></figure>
+
+<h4 id="AJAX介绍"><a href="#AJAX介绍" class="headerlink" title="AJAX介绍"></a>AJAX介绍</h4><p>AJAX 是一种创建交互式网页应用的技术，可在不刷新页面的情况下与服务器交换数据。</p>
+<h4 id="Handler处理器"><a href="#Handler处理器" class="headerlink" title="Handler处理器"></a>Handler处理器</h4><p>Handler 处理器用于处理 URL 请求。例如，使用代理处理器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">proxy_handler = urllib.request.ProxyHandler(&#123;<span class="hljs-string">&quot;http&quot;</span>: <span class="hljs-string">&quot;http://proxy.example.com:8080&quot;</span>&#125;)<br>opener = urllib.request.build_opener(proxy_handler)<br>response = opener.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;http://www.example.com/&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h4><p>代理服务器用于转发网络请求，可隐藏客户端 IP、突破访问限制等。</p>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><p>解析网页内容可使用 XPath 或正则表达式等技术。</p>
+<h4 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h4><p>XPath 用于在 XML 或 HTML 文档中查找信息。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>html = etree.HTML(page_source)<br>titles = html.xpath(<span class="hljs-string">&quot;//title/text()&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="HTML与XML"><a href="#HTML与XML" class="headerlink" title="HTML与XML"></a>HTML与XML</h4><p>HTML 用于创建网页，XML 用于存储和传输数据。</p>
+<h4 id="lxml-库"><a href="#lxml-库" class="headerlink" title="lxml 库"></a><code>lxml</code> 库</h4><p><code>lxml</code> 库用于解析 HTML 和 XML 文档。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br>html = etree.HTML(page_source)<br></code></pre></td></tr></table></figure>
+
+<h4 id="JSONPath"><a href="#JSONPath" class="headerlink" title="JSONPath"></a>JSONPath</h4><p>JSONPath 用于提取 JSON 数据。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> jsonpath<br>data = &#123;<span class="hljs-string">&quot;store&quot;</span>: &#123;<span class="hljs-string">&quot;book&quot;</span>: [&#123;<span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;Book1&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;Book2&quot;</span>&#125;]&#125;&#125;<br>titles = jsonpath.jsonpath(data, <span class="hljs-string">&quot;$.store.book[*].title&quot;</span>)<br><span class="hljs-built_in">print</span>(titles)  <span class="hljs-comment"># 输出 [&quot;Book1&quot;, &quot;Book2&quot;]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Selenium库使用"><a href="#Selenium库使用" class="headerlink" title="Selenium库使用"></a>Selenium库使用</h4><p>Selenium 用于自动化测试和爬虫，可模拟浏览器操作。</p>
+<h5 id="浏览器驱动程序"><a href="#浏览器驱动程序" class="headerlink" title="浏览器驱动程序"></a>浏览器驱动程序</h5><p>需下载对应浏览器的驱动程序。例如，Chrome 浏览器需下载 <code>chromedriver</code>。</p>
+<h5 id="安装-Selenium"><a href="#安装-Selenium" class="headerlink" title="安装 Selenium"></a>安装 Selenium</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install selenium<br></code></pre></td></tr></table></figure>
+
+<h5 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br>driver = webdriver.Chrome()<br>driver.get(<span class="hljs-string">&quot;https://www.python.org/&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="Headless模式"><a href="#Headless模式" class="headerlink" title="Headless模式"></a>Headless模式</h5><p>Headless 模式用于无头浏览器操作。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium.webdriver.chrome.options <span class="hljs-keyword">import</span> Options<br>chrome_options = Options()<br>chrome_options.add_argument(<span class="hljs-string">&quot;--headless&quot;</span>)<br>driver = webdriver.Chrome(options=chrome_options)<br></code></pre></td></tr></table></figure>
+
+<h5 id="元素定位的方法"><a href="#元素定位的方法" class="headerlink" title="元素定位的方法"></a>元素定位的方法</h5><p>Selenium 提供多种元素定位方法，如通过 ID、名称、类名、标签名、链接文本、部分链接文本、XPath、CSS 选择器等。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">element = driver.find_element_by_id(<span class="hljs-string">&quot;element_id&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="验证码识别"><a href="#验证码识别" class="headerlink" title="验证码识别"></a>验证码识别</h4><p>验证码识别可使用打码平台或 OCR 库。</p>
+<h5 id="Python的OCR库"><a href="#Python的OCR库" class="headerlink" title="Python的OCR库"></a>Python的OCR库</h5><p><code>pytesseract</code> 和 <code>ddddocr</code> 是常用的 OCR 库。例如，使用 <code>pytesseract</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> pytesseract<br>image = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;captcha.png&quot;</span>)<br>code = pytesseract.image_to_string(image)<br><span class="hljs-built_in">print</span>(code)<br></code></pre></td></tr></table></figure>
+
+<h4 id="Requests库"><a href="#Requests库" class="headerlink" title="Requests库"></a>Requests库</h4><p>Requests 库是 Python 的一个 HTTP 客户端库，用于发送 HTTP 请求。</p>
+<h5 id="与-urllib-库的区别"><a href="#与-urllib-库的区别" class="headerlink" title="与 urllib 库的区别"></a>与 <code>urllib</code> 库的区别</h5><p>Requests 库的 API 更简单易用，支持连接池、会话保持等功能。</p>
+<h5 id="会话保持"><a href="#会话保持" class="headerlink" title="会话保持"></a>会话保持</h5><p>使用 <code>Session</code> 对象保持会话。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">session = requests.Session()<br>response1 = session.get(<span class="hljs-string">&quot;https://www.example.com/page1&quot;</span>)<br>response2 = session.get(<span class="hljs-string">&quot;https://www.example.com/page2&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="session与cookie"><a href="#session与cookie" class="headerlink" title="session与cookie"></a>session与cookie</h5><p><code>Session</code> 对象可自动管理 cookie，保持会话状态。</p>
+<h4 id="实战案例分析"><a href="#实战案例分析" class="headerlink" title="实战案例分析"></a>实战案例分析</h4><p>例如，古诗文网登录爬虫：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> pytesseract<br><br><span class="hljs-comment"># 获取登录页面源码</span><br>url = <span class="hljs-string">&quot;https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx&quot;</span><br>headers = &#123;<br>    <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0&quot;</span><br>&#125;<br>response = requests.get(url, headers=headers)<br>content = response.text<br><br><span class="hljs-comment"># 解析页面源码</span><br>html_tree = etree.HTML(content)<br>VIEWSTATE = html_tree.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;__VIEWSTATE&quot;]/@value&#x27;</span>)[<span class="hljs-number">0</span>]<br>VIEWSTATEGENERATOR = html_tree.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;__VIEWSTATEGENERATOR&quot;]/@value&#x27;</span>)[<span class="hljs-number">0</span>]<br>code_url = html_tree.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;imgCode&quot;]/@src&#x27;</span>)[<span class="hljs-number">0</span>]<br>code_url = <span class="hljs-string">&quot;https://so.gushiwen.cn&quot;</span> + code_url<br><br><span class="hljs-comment"># 下载验证码</span><br>code_response = requests.get(code_url, headers=headers)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;captcha.png&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(code_response.content)<br>image = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;captcha.png&quot;</span>)<br>code = pytesseract.image_to_string(image)<br><br><span class="hljs-comment"># 登录</span><br>login_url = <span class="hljs-string">&quot;https://so.gushiwen.cn/user/login.aspx?from=http%3a%2f%2fso.gushiwen.cn%2fuser%2fcollect.aspx&quot;</span><br>data = &#123;<br>    <span class="hljs-string">&quot;__VIEWSTATE&quot;</span>: VIEWSTATE,<br>    <span class="hljs-string">&quot;__VIEWSTATEGENERATOR&quot;</span>: VIEWSTATEGENERATOR,<br>    <span class="hljs-string">&quot;from&quot;</span>: <span class="hljs-string">&quot;http://so.gushiwen.cn/user/collect.aspx&quot;</span>,<br>    <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;your_email&quot;</span>,<br>    <span class="hljs-string">&quot;pwd&quot;</span>: <span class="hljs-string">&quot;your_password&quot;</span>,<br>    <span class="hljs-string">&quot;code&quot;</span>: code,<br>    <span class="hljs-string">&quot;denglu&quot;</span>: <span class="hljs-string">&quot;登录&quot;</span><br>&#125;<br>response = requests.post(login_url, headers=headers, data=data)<br><span class="hljs-built_in">print</span>(response.text)<br></code></pre></td></tr></table></figure>
+        </div>
+        
+        <!-- 文章导航 -->
+        <nav class="post-nav">
+          
+          
+            <a class="next" href="../../../05/06/%E5%9B%9B%E7%BA%A7/">
+              四级备考攻略
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          
+        </nav>
+      </article>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <footer class="footer">
+  <div class="status-bar">
+    <div class="status-item">
+      <i class="fas fa-code-branch"></i>
+      master
+    </div>
+    <div class="status-item">
+      <i class="fas fa-sync"></i>
+      zzy
+    </div>
+    <div class="status-item">
+      <i class="fas fa-clock"></i>
+      2025-06-01
+    </div>
+    <div class="status-item">
+      Designed By&nbsp; <a href="https://github.com/B143KC47" target="_blank"> BlackCat</a>
+    </div>
+    <div class="status-item github">
+      <a href="#" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+    
+    <!-- 全局配置 -->
+    <script>
+      window.HEXO_CONFIG = {
+        language: "zh-CN",
+        root: "/"
+      };
+      
+      // 特定于搜索的配置
+      window.VSC4T_SEARCH = {
+        root: "/"
+      };
+    </script>
+    
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/highlight.js@11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- 这里可以放置自定义脚本 -->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Apply smooth scroll to non-TOC anchor links
+  document.querySelectorAll('a[href^="#"]:not(.toc-link)').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Check if querySelector is valid before using it
+      try {
+        const targetSelector = this.getAttribute('href');
+        // Basic check for potentially invalid selectors (though not exhaustive)
+        if (targetSelector && targetSelector.length > 1) { 
+          const targetElement = document.querySelector(targetSelector);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          } else {
+            console.warn('Smooth scroll target not found:', targetSelector);
+          }
+        } else {
+           console.warn('Invalid href for smooth scroll:', targetSelector);
+        }
+      } catch (error) {
+        console.error('Error during smooth scroll:', error, 'Selector:', this.getAttribute('href'));
+        // Fallback or alternative behavior if needed
+        // For example, try getElementById if it's just an ID
+        const targetId = this.getAttribute('href').slice(1);
+        try {
+            const targetElementById = document.getElementById(decodeURIComponent(targetId));
+            if (targetElementById) {
+                targetElementById.scrollIntoView({ behavior: 'smooth' });
+            }
+        } catch (idError) {
+             console.error('Fallback getElementById also failed:', idError);
+        }
+      }
+    });
+  });
+});
+</script>
+<script src="../../../../js/toc.js"></script>
+
+<!-- Scripts -->
+<script>
+  // 将语言文件中的翻译传递给前端
+  window.HEXO_CONFIG = {
+    language: "zh-CN",
+    search_placeholder: "输入关键词搜索...",
+    search_no_results: "未找到相关结果",
+    search_result: "نتيجة",
+    search_results: "搜索结果",
+    search_results_found: "找到 undefined 个结果",
+    search_in: "搜索范围",
+    search_in_title: "标题",
+    search_in_content: "内容",
+    search_in_tags: "标签",
+    search_in_categories: "分类",
+    search_filters: "搜索过滤器",
+    search_recent: "最近搜索",
+    search_clear: "清除",
+    search_loading: "加载中...",
+    search_error: "加载搜索数据时出错"
+  };
+</script>
+
+
+
+<!-- 添加所有需要的脚本 -->
+<script src="../../../../js/main.js"></script>
+<script src="../../../../js/search.js"></script>
+
+
+    <script>
+      // 移动端菜单切换
+      $(document).ready(function() {
+        $('.mobile-menu-toggle').click(function() {
+          $('.sidebar-explorer').toggleClass('show');
+        });
+      });
+    </script>
+  </body>
+</html>
